@@ -3,12 +3,10 @@ package ru.netology.page;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
-import javax.swing.*;
-
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
-public class LoginPageV2 {
+public class LoginPage {
     private SelenideElement loginField = $("[data-test-id=login] input");
     private SelenideElement passwordField = $("[data-test-id=password] input");
     private SelenideElement loginButton = $("[data-test-id=action-login]");
@@ -18,16 +16,6 @@ public class LoginPageV2 {
         loginField.setValue(info.getLogin());
         passwordField.setValue(info.getPassword());
         loginButton.click();
-        return new VerificationPage();
-
-    }
-
-    public LoginPageV2 invalidLogin(DataHelper.AuthInfo info) {
-       loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
-        loginButton.click();
-
-        errorNotification.shouldBe(visible);
-        return this;
+        return page(VerificationPage.class);
     }
 }
